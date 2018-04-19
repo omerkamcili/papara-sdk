@@ -7,7 +7,7 @@ class PaparaClientTest extends Specification{
     private PaparaClient client
 
     void setup(){
-        String apikey = "05c3XqaVsi01xIZgfVsFhaTO015g648+oVybTxfScDtSmM9bRBO73KciTW97PYpFCynzYJet6Jn1g3qg+7kTTw=="
+        String apikey = "4u3748re9w99dsf0ds0gfg9fdh9dfg0hfd*g*ds*g0fdh9fd9hdfgh"
         Boolean isTest = true
         client = new PaparaClient(apikey, isTest)
     }
@@ -27,6 +27,19 @@ class PaparaClientTest extends Specification{
 
         then:
         response != null
+
+    }
+
+    def "check payment test"(){
+
+        setup:
+        String paymentId = "e6b601d5-d655-4845-87bd-84ff05cabaf9"
+
+        when:
+        PaymentResponse response = client.checkStatus(paymentId)
+
+        then:
+        response.succeeded != null
 
 
     }

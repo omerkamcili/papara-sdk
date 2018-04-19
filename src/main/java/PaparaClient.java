@@ -19,9 +19,9 @@ public class PaparaClient {
         this.apiKey = apiKey;
         this.gson = new Gson();
 
-        if (isTest){
+        if (isTest) {
             this.apiUrl = apiUrlTest;
-        }else{
+        } else {
             this.apiUrl = apiUrlLive;
         }
     }
@@ -35,6 +35,14 @@ public class PaparaClient {
 
     }
 
+
+    public PaymentResponse checkStatus(String paymentId) throws IOException {
+
+        String apiRequest = this.get(this.apiUrl + "/payments?id=" + paymentId);
+        return this.gson.fromJson(apiRequest, PaymentResponse.class);
+
+    }
+
     String post(String url, String json) throws IOException {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSON, json);
@@ -42,6 +50,17 @@ public class PaparaClient {
                 .url(url)
                 .header("ApiKey", this.apiKey)
                 .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+    String get(String url) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .header("ApiKey", this.apiKey)
+                .get()
                 .build();
         Response response = client.newCall(request).execute();
         return response.body().string();

@@ -11,6 +11,6 @@ public class PaymentResponse {
     Boolean succeeded;
 
     @SerializedName("error")
-    PaymentResponseError error;
+    Error error;
 
 }

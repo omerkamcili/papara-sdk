@@ -1,6 +1,6 @@
 package response;
 
-public class PaymentResponseError {
+public class Error {
     String message;
     Integer code;
 }
